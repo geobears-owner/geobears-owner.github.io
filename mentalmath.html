@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="mentalmath.css">
+<link rel="icon" type="image/x-icon" href="Favicon.png">
+</head>
+<title>Home</title>
+<body>
+
+<div class="topnav">
+  <a id="openside">Menu</a>
+  <a href="http://127.0.0.1:5500/mentalmath.html">Home</a>
+  <a href="http://127.0.0.1:5500/level.html">Mental Maths Game</a>
+  <a href="http://127.0.0.1:5500/MonteCarlo.html">Monte Carlo Simulator</a>
+  <div class="search-container moretop">
+    <label for="accept">
+    <input type="string" id="toDisplay" name="accept" value="" placeholder="Search here!"> 
+  </label>
+  </div>
+</div>
+<div id="sidecontent" class="sidebar">
+<a href="http://127.0.0.1:5500/level.html">Mental Maths Game</a>
+<a href="http://127.0.0.1:5500/MonteCarlo.html">Monte Carlo Simulator</a>
+<a href="http://127.0.0.1:5500/experiment.html">Mental Math Game Stats</a>
+</div>
+<div style="padding-left:16px">
+  <h2 class="big" style="color:white">Mathematics Trainer</h2>
+  <p class="medium" style="color:white">Training for bored mathematics enthusiasts.</p>
+</div>
+
+<div class="midleft goback">
+  <div class = "box">
+    <h2>Mental Maths Game</h2>  
+    <p id="videobox2"></p>
+  </div>
+</div>
+<div class="midright">
+  <div class = "box">
+    <h2><a href="http://127.0.0.1:5500/MonteCarlo.html">Monte Carlo Simulator</a></h2>
+    <p id="videobox3"></p>
+  </div>
+</div>
+<canvas id="draw" height="5000" width="5000" class="montepos">
+</canvas>
+<button class="equal" id="equal">
+=
+</button>
+<canvas id="calc" height="500" width="500" class="move"></canvas>
+</body>
+<script src="everything.js"></script>
+<img id="oh" src="calculator.png" class="notseen">
+</div>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="experiment.css"> <!--CSS and Favicon Links-->
+    <link rel="icon" type="image/x-icon" href="Favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+<h1>Your Statistics!</h1> 
+<h2><a id="openside" style="text-decoration: underline">Return Home</a></h2> <!--Identical sidebar, check MonteCarlo.html-->
+<div id="sidecontent" class="sidebar">
+    <a href="mental.html">Back to Game</a>
+    <a href="MonteCarlo.html">Monte Carlo Simulator</a>
+    <a href="experiment.html">Mental Math Game Stats</a>
+</div>
+<h2>Sessions History</h2> <!--Session History Forms-->
+<h3>If you want a pie chart detailing your solve times and average score based on a specific mode (multiplication, division, subtraction, addition or mix)
+type in (mult, add, sub, div, mix) and a level below for the pie chart to display.
+</h3>
+<label for="accept">
+    Mode <input type="string" id="Mode" name="accept" value="" placeholder="What mode?"> 
+</label>
+<label for="accept">
+    Level <input type="number" id="Level" name="accept" value="" placeholder="What level?"> 
+</label>
+<br>
+<button id='submit'>See Stats!</a></button> <!--Submit button-->
+<h3 id="played">Games Played:</h3>
+<h3 id="daily"></h3>
+<h1>Session History</h1>
+<canvas id="draw" width="1200" height="10000"></canvas>
+</body>
+<script>//This is all canvas JS which was too fragile to put in everything.js without breaking lots of things :(
+if (document.getElementById('openside') != null){ //sidebar JS
+    document.getElementById('sidecontent').setAttribute('style','width:0px')
+    function openbar(){
+        document.getElementById('sidecontent').setAttribute('style','width: 250px')
+    }
+    document.getElementById('openside').onclick = function(){openbar()}
+}
+var ctx = document.getElementById("draw").getContext("2d"); //canvas
+var wantToSee = 100; //limit to number of sesions you can see
+var allInfo = localStorage.getItem('information').toString().split(' '); //information stored in localStroage
+var propCorrect = []; //proportion correct
+var corFin = [];//correct & Finished
+var times = [];//time started
+var timeTakens = []; //time taken
+var widths = [];
+var modeLev = [];
+for (let i=0; i<Math.floor(allInfo.length/10); i+=1){ //Specific indices contain specific information
+    //The order is correct questionsattempted livesLost time-score Month Day Year Mode Level
+    propCorrect.push([allInfo[10*i+0]/allInfo[10*i+1],allInfo[10*i+7]]) //Extract information from allInfo
+    corFin.push([allInfo[10*i+0],allInfo[10*i+1]])
+    times.push(allInfo[10*i+4]+' '+allInfo[10*i+5]+' '+allInfo[10*i+6]+' '+allInfo[10*i+7])
+    timeTakens.push(allInfo[10*i+3])
+    modeLev.push([allInfo[10*i+8],allInfo[10*i+9]])
+}
+var limit = Math.min(Math.floor(allInfo.length/10)+1,wantToSee); //the limit of how many sessions are shown
+function rightfont(txt,size){//fit text into size
+    ctx.font = "30px Arial"
+    var fsize = 30*size/(ctx.measureText(txt).width)
+    return fsize
+}
+for (let i=propCorrect.length-1; i>= Math.max(propCorrect.length-wantToSee,0); i+=-1){ //going from latest to earliest index
+    if (parseFloat(propCorrect[i][0]) != 0){ //didn't get everything wrong
+        //Visual Representation
+        var width = ((1-propCorrect[i][0])/propCorrect[i][0])*100; //calculate width of red part, based on width of green part and score
+        widths.push(width)
+        ctx.beginPath()
+        ctx.rect(150, 40*(propCorrect.length-i-1)+70, width, 20)//draw in red rectangle at desired height
+        ctx.fillStyle='red'; //draw it in red
+        ctx.fill()
+        ctx.beginPath()
+        ctx.rect(50, 40*(propCorrect.length-i-1)+70, 100, 20)
+        ctx.fillStyle = 'blue' //draw correct bit in blue, width 100
+        ctx.fill()
+    }
+    if (parseFloat(propCorrect[i][0]) == 0){
+        ctx.beginPath() //same deal, except no blue part because they got everything wrong
+        ctx.fillStyle = 'red';
+        ctx.rect(50, 40*(propCorrect.length-i-1)+70, 100, 20)
+        ctx.fill()
+    }
+}
+for (let i=propCorrect.length-1; i>= Math.max(propCorrect.length-wantToSee,0); i+=-1){
+        ctx.beginPath()
+        const perRight = (propCorrect[i][0]*100).toFixed(2)+'%'; //% right
+        ctx.font = rightfont(perRight, 60).toString()+'px Arial'; //font for percentage right needs to fit in 60px
+        ctx.fillStyle = 'black'; //details for writing
+        ctx.textAlign = 'center';
+        ctx.fillText(perRight,Math.max(...widths)+140+67.5,40*(propCorrect.length-i-1)+85) //writes out % right
+        var correct = corFin[i][0]
+        var finished = corFin[i][1]
+        ctx.fillText(correct,Math.max(...widths)+140+142.5,40*(propCorrect.length-i-1)+85) //writes out no. of correct and finished
+        ctx.fillText(finished,Math.max(...widths)+140+222.5,40*(propCorrect.length-i-1)+85)
+        var timeWrite = times[i]; //time session was completed
+        ctx.font = rightfont(timeWrite, 172).toString()+'px Arial';
+        ctx.fillText(timeWrite,Math.max(...widths)+762.5,40*(propCorrect.length-i-1)+85)
+        var hour = Math.floor(timeTakens[i]/3600);
+        var minute = Math.floor((timeTakens[i]-3600*hour)/60)
+        var second = timeTakens[i]-3600*hour-60*minute
+        var timeTake = hour.toString()+'hour(s), '+minute.toString()+'minute(s), '+second.toString()+'second(s).' //reconvert back into hours,mins, sec
+        ctx.font = rightfont(timeTake, 200).toString()+'px Arial'; //200px space to write
+        ctx.fillText(timeTake, Math.max(...widths)+530,40*(propCorrect.length - i-1)+82.5) //writes out time taken
+        var mod = modeLev[i][0]; //mode and level
+        var lev = modeLev[i][1];
+        ctx.font = '50 px Arial'
+        ctx.fillText(mod,Math.max(...widths)+907.5,40*(propCorrect.length-i-1)+85)
+        ctx.fillText(lev,Math.max(...widths)+982.5,40*(propCorrect.length-i-1)+85)
+    }
+//header bit
+ctx.moveTo(30, 50) //A LOT of formatting to draw in the lines properly for the table, based on max width of visual, rest is fixed
+ctx.lineTo(Math.max(...widths)+140+730, 50)
+ctx.moveTo(Math.max(...widths)+170,50)
+ctx.lineTo(Math.max(...widths)+170, 0)
+ctx.lineTo(Math.max(...widths)+170, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+245,50)
+ctx.lineTo(Math.max(...widths)+245, 0)
+ctx.lineTo(Math.max(...widths)+245, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+320,50)
+ctx.lineTo(Math.max(...widths)+320, 0)
+ctx.lineTo(Math.max(...widths)+320, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+405,50)
+ctx.lineTo(Math.max(...widths)+405, 0)
+ctx.lineTo(Math.max(...widths)+405, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+655,50)
+ctx.lineTo(Math.max(...widths)+655, 0)
+ctx.lineTo(Math.max(...widths)+655, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+870,50)
+ctx.lineTo(Math.max(...widths)+870, 0)
+ctx.lineTo(Math.max(...widths)+870, 40*limit+30)
+ctx.moveTo(Math.max(...widths)+945,50)
+ctx.lineTo(Math.max(...widths)+945, 0)
+ctx.lineTo(Math.max(...widths)+945, 40*limit+30)
+ctx.rect(30, 0, Math.max(...widths)+140+850, 40*limit+30);
+ctx.moveTo(Math.max(...widths)+1020,50)
+ctx.lineTo(Math.max(...widths)+870,50)
+//Writes out all headers of table
+ctx.font = "16px Arial";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Right vs. Wrong",(Math.max(...widths)+170)/2,33)
+ctx.fillText("% right",Math.max(...widths)+170+37.5,33)
+ctx.fillText("Correct",Math.max(...widths)+245+37.5,33)
+ctx.fillText("Attempted",Math.max(...widths)+320+42.5,33)
+ctx.fillText("Time Taken",Math.max(...widths)+405+125,33)
+ctx.fillText("Time Started",Math.max(...widths)+655+106.25,33)
+ctx.fillText("Level",Math.max(...widths)+870+37.5,33)
+ctx.fillText("Mode",Math.max(...widths)+945+37.5,33)
+ctx.stroke();
+//Session No.
+//Pie Charts!!
+function piechart(){
+    var acceptedIndices = [];
+    var chosenMode = document.querySelector('#Mode').value; //Takes pie chart form values
+    var chosenLevel = document.querySelector('#Level').value;
+    for (let i=0; i<Math.floor(allInfo.length/10); i+=1){ //goes based on number of sessions (allInfo length/10)
+        if (allInfo[10*i+9] == chosenMode){ //logs mode and level
+            if (allInfo[10*i+8] == chosenLevel){
+            acceptedIndices.push(i) //accepted indices in allInfo under that mode and level
+            }}
+    }
+    var tot = 0; //total scores obtained
+    var solveTimes = 0; //total times taken to solve
+    for (var i in acceptedIndices){ //goes through all indices of acceptedIndices
+    tot = tot+allInfo[10*acceptedIndices[i]+0]/allInfo[10*acceptedIndices[i]+1] //adds to total solves
+    solveTimes = solveTimes+parseFloat(allInfo[10*acceptedIndices[i]+3]/allInfo[10*acceptedIndices[i]+1])}
+    var averageScore = tot/(acceptedIndices.length)  //calculates average score and solve times
+    var solveTime = solveTimes/(acceptedIndices.length)
+    ctx.beginPath()
+    ctx.fillStyle='blue'
+    ctx.arc((Math.max(...widths)+1040)/2,40*limit+330,200,0,2*averageScore*Math.PI) //draws arc in blue with length based on average score
+    ctx.lineTo((Math.max(...widths)+1040)/2, 40*limit+330)
+    ctx.lineTo((Math.max(...widths)+1040)/2+200, 40*limit+330)
+    ctx.fill()
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.fillStyle='red'
+    ctx.arc((Math.max(...widths)+1040)/2,40*limit+330,200,2*Math.PI,2*averageScore*Math.PI,'clockwise') //draws out the rest in red
+    ctx.lineTo((Math.max(...widths)+1040)/2, 40*limit+330)
+    ctx.lineTo((Math.max(...widths)+1040)/2+200, 40*limit+330)
+    ctx.fill()
+    ctx.stroke() 
+    //Writing out the details of the rest below it.
+    ctx.fillStyle = 'black';
+    ctx.font = "30px Arial"
+    ctx.fillText("Average Scores", (Math.max(...widths)+1040)/2, 40*limit+80)
+    ctx.font = "20px Arial"
+    ctx.fillText("Average right vs wrong score under your chosen mode and level", (Math.max(...widths)+1040)/2, 40*limit+120)
+    ctx.fillText("Average Question Solve Times: "+solveTime.toFixed(2).toString()+' seconds', (Math.max(...widths)+1040)/2, 40*limit+600)
+}
+document.getElementById('submit').onclick = function(){piechart()}
+document.getElementById('played').innerHTML = 'Games Played: '+localStorage.getItem('sessionnumber').toString();
+</script>
+</html>

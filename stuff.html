@@ -1,0 +1,39 @@
+<script>
+//Throughout the project, there have been numerous ways in which I have had to manipulate HTML and CSS with JS.
+document.getElementById("id-name") //provides the content of the element with that id.
+document.getElementById("id-name").innerHTML //provides the HTML content of that id. This can then also be reversed,
+//and using JS not only can we read that inner html like this,
+let text = document.getElementById("id-name").innerHTML//but we can edit what this element says by writing this.
+document.getElementById("id-name").innerHTML = stuff
+
+//We can register that an action has taken place on the html element, for example onclick by doing this:
+document.getElementById("id-name").onclick = function(){stuff()}
+//There are lots of HTML events like this, such as onmousedup, onmousedown, onload, etc. and are implemented identically
+//Or we can set an attribute and do it like this
+document.getElementById("id-name").setAttribute("class","otherclass")
+//Speaking of setting attributes, we can now manipulate CSS too, for instance
+document.getElementById("id-name").setAttribute("style","width:100px")
+//But actually it's better to do this,
+document.getElementById("id-name").style.width = "100px"
+//We can even do fully-fledged animations with this, by first defining CSS features as above and then defining functions that changed its attributes.
+//For example, in the code below (from W3Schools) it takes the document with ID animate and sets its styles of top and left positions
+//to be equal to the value pos which is a counter going up from 0 to 350.
+function myMove() {
+  let id = null;
+  const elem = document.getElementById("animate");   
+  let pos = 0;
+  clearInterval(id);
+  id = setInterval(frame, 5);
+  function frame() {
+    if (pos == 350) {
+      clearInterval(id);
+    } else {
+      pos++; 
+      elem.style.top = pos + "px"; 
+      elem.style.left = pos + "px"; 
+    }
+  }
+}
+
+
+  

@@ -1,0 +1,217 @@
+.span {
+    vertical-align: middle;
+}
+.but_1{
+    position: fixed;
+    top: 350px;
+    left: 220px;
+}
+.but_2{
+    position: fixed;
+    top: 350px;
+    left: 880px;
+}
+.but_3{
+    position: fixed;
+    top: 550px;
+    left: 880px;
+}
+.but_4{
+    position: fixed;
+    top: 550px;
+    left: 220px;
+}
+.button {
+    background-color: lightgray; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    height: 150px;
+    width: 350px;
+    font-size: 30px;
+    outline-style: dashed;
+    outline-color: black;
+    border-radius: 5px;
+  }
+.start {
+    font-size: 50px;
+    color: #c60c46;
+    border-radius: 15px;
+}
+.bar {
+    position: fixed;
+    height: 435px;
+    width: 120px;
+    background-color: lightcoral; /* Green */
+    text-decoration:solid;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 25px;
+    border: 5px solid;
+    font: Cambria;
+    line-height: 100px;
+}
+.main{
+    position: fixed;
+    top: 50px;
+    left: 400px;
+    text-align: center;
+}
+.videobox{
+  height: 250px;
+  width: 650px;
+  padding: 10px;
+  border: 5px solid black;
+  border: 5px dashed;
+  line-height: 250px;
+  display: inline-block;
+  text-align: center;
+  font-size: 50px;
+}
+.videobox1{
+  height: 150px;
+  width: 400px;
+  left: 510px;
+  padding: 10px;
+  border: 5px solid black;
+  border: 5px dashed;
+  line-height: 150px;
+  display: inline-block;
+  text-align: center;
+  font-size: 50px;
+}
+.quit{
+    position: fixed;
+    top: 495px;
+    left: 585px;
+}
+
+.scoreboard {
+    position: fixed;
+    top: 10px;
+    left: 1245px;
+}
+.otherbar{
+    position: fixed;
+    height: 500px;
+    width: 120px;
+    background-color: orange; /* Green */
+    text-decoration:solid;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    border: 5px solid;
+    font: Cambria;
+    line-height: 35px;
+}
+.statistics{
+    position: fixed;
+    top: 520px;
+    left: 10px;
+    height: 200px;
+    width: 120px;
+    background-color: bisque; /* Green */
+    text-decoration:solid;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    border: 5px solid;
+    font: Cambria;
+    line-height: 35px;
+}
+.centermid{
+    position: fixed;
+    top: 650px;
+    left: 430px;
+    text-align: center;
+    font-size: 25px;
+}
+img {
+    opacity: 0.1;
+}
+.inside{
+    position: fixed;
+    top: 250px;
+    left: 770px;
+}
+.form{
+    position: fixed;
+    font-size: 26px;
+    height: 40px;
+    width: 0px;
+    background-color: #32CD32;
+    margin: 0%;
+    outline-width: 0;
+    top: 352px;
+    left: 910px;
+    z-index: 2;
+}
+.change{
+    outline: 0;
+    border: 0;
+}
+.invisbut{
+    position:fixed;
+    top: 450px;
+    left:870px;
+    z-index: 3;
+    height: 100px;
+    width:100px;
+    background-color: transparent;
+    border: 0px
+}
+.invisbut2{
+    position:fixed;
+    top: 550px;
+    left: 970px;
+    z-index: 3;
+    height: 100px;
+    width:100px;
+    background-color: transparent;
+    border: 0px
+}
+.invisbut3{
+    position:fixed;
+    top: 650px;
+    left: 920px;
+    z-index: 3;
+    height: 100px;
+    width:100px;
+    background-color: transparent;
+    border: 0px
+}
+.startt{
+    display: none; position: fixed; top: 770px; left:930px; z-index:4
+}
+.sidebar {
+    height: 100%;
+    text-decoration: underline;
+    width: 0px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: black;
+    overflow-x: hidden;
+    color: gray;
+    text-align: center;
+    transition: 1s
+  }
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    font-size: 15px;
+    line-height: 100px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }

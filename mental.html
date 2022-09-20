@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="Favicon.png"> <!--Favicon link-->
+    <link rel="stylesheet" href="mental.css"> <!--CSS Link-->
+    <link rel="icon" type="image/x-icon" href="/images/">
+    <title>Mental Maths Trainer</title>
+</head>
+<body>
+<button class="start replay" id="replay">
+    <a href="level.html">Play Again</a>
+</button>
+<h2><a id="openside" class="mentalmenu">Menu</a></h2> <!--Menu Bar, as in all other sites-->
+<button style="position: fixed; top: 20px; left: 640px" id="skip" onclick="document.getElementById('skip').innerHTML = 'stop'">
+    Skip Intro Text (takes two lines)
+</button> <!--Skips Intro Text by calling js function-->
+  <div class="but_1">  <!--Buttons with different option id's-->
+    <button class="button" id="option1"></button>
+  </div>
+  <div class="but_2">
+    <button class="button" id="option2"></button>
+  </div>
+  <div class="but_3">
+    <button class="button" id="option3"></button>
+  </div>
+  <div class="but_4">
+    <button class="button" id="option4"></button>
+  </div>
+  <div class="bar" id="scary"><button class="start" onclick="writetime(0,5000); makenew()">Start</button></div> <!--Start button-->
+  <div class="main videobox"> <!--Videobox part-->
+      <span id="videobox"></span>
+  </div>
+  <div class="quit"> <!--Calls quit function-->
+    <button onclick="quit()" class="start" id='stopper'>
+    Call it quits?
+  </button>
+  </div>
+  <div class="otherbar scoreboard"> <!--Scoreboard on right-->
+    <h2 id="qa">Questions Answered</h2> <!--Stats displayed, id's to be changed by JS later-->
+    <h2 id="ca">Correctly Answered:</h2>
+    <h2 id="pc">Percentage Correct: </h3>
+    <h2 id="lr">Lives Remaining: ♥♥♥</h4>
+  </div>
+  <div class="statistics"> <!--Save score-->
+    <h2><a href="experiment.html">See Statistics</a></h2>
+    <h2><button id="savescore">Save Score & Statistics</button></h2>
+  </div>
+<div id="sidecontent" class="sidebar"> <!--Side bar-->
+    <a href="mentalmath.html">Home Page</a>
+    <a href="MonteCarlo.html">Monte Carlo Simulator</a>
+    <a href="experiment.html">Mental Math Game Stats</a>
+</div>
+<canvas id="draw">
+</canvas>
+<script src="everything.js">
+</script>
+</body>
+</html>

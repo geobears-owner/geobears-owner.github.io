@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="mental.css"> <!-- Links to stylesheet-->
+    <link rel="icon" type="image/x-icon" href="Favicon.png"> <!-- Adds in favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monte Carlo</title>
+</head>
+<body>
+<h2><a id="openside" style="color: white; text-decoration: underline;">Visit Other Pages</a></h2> <!-- Menu Bar -->
+<div id="sidecontent" class="sidebar"> <!-- Side bar, hidden before menu is pressed -->
+        <a href="mentalmath.html">Home Page</a>
+        <a href="MonteCarlo.html">Monte Carlo Simulator</a>
+        <a href="experiment.html">Mental Math Game Stats</a>
+</div>
+<div class="main videobox1"> <!-- Videobox where text is written-->
+<span id="videobox1"></span>
+</div>
+<canvas id="draw" width="1000" height="720"> <!-- Canvas for drawing the monte carlo diagram-->
+</canvas>
+<h2 class="centermid">
+<label for="accept">
+How many random points? <input type="number" id="numberPoints" name="accept" value=""> <!-- Form!-->
+</label>
+<button id='submitt'>Watch it go!</button> <!--Submit button-->
+</h2>
+</body>
+<script src="everything.js"></script> <!--Links to JS file-->
+</html>
